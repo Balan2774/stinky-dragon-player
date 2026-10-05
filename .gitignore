@@ -1,0 +1,6 @@
+*.xml
+*.rss
+episodes.json
+private-feed*
+.openai/
+work/
