@@ -1,6 +1,6 @@
-const CACHE='stinky-dragon-shell-v6';
+const CACHE='stinky-dragon-shell-v7';
 const ROOT=new URL('./',self.location.href);
-const SHELL=['./','index.html','style.css?v=5','app.js?v=6','manifest.webmanifest','assets/cover.jpg','assets/dragon-icon-180.png','assets/dragon-icon-192.png','assets/dragon-icon-512.png'].map(path=>new URL(path,ROOT).href);
+const SHELL=['./','index.html','style.css?v=5','app.js?v=7','manifest.webmanifest','assets/cover.jpg','assets/dragon-icon-180.png','assets/dragon-icon-192.png','assets/dragon-icon-512.png'].map(path=>new URL(path,ROOT).href);
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('stinky-dragon-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',event=>{
