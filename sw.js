@@ -1,6 +1,6 @@
-const CACHE='stinky-dragon-shell-v3';
+const CACHE='stinky-dragon-shell-v4';
 const ROOT=new URL('./',self.location.href);
-const SHELL=['./','index.html','style.css?v=3','app.js?v=3','manifest.webmanifest','assets/cover.jpg','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png'].map(path=>new URL(path,ROOT).href);
+const SHELL=['./','index.html','style.css?v=3','app.js?v=4','manifest.webmanifest','assets/cover.jpg','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png'].map(path=>new URL(path,ROOT).href);
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('stinky-dragon-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',event=>{
@@ -10,3 +10,4 @@ self.addEventListener('fetch',event=>{
  if(!navigation&&!SHELL.includes(url.href))return;
  event.respondWith(fetch(request).then(response=>{if(response.ok&&response.type==='basic'){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(navigation?ROOT.href:request,copy)))}return response}).catch(()=>caches.open(CACHE).then(cache=>cache.match(navigation?ROOT.href:request))));
 });
+
