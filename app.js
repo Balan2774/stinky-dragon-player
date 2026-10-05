@@ -71,3 +71,7 @@ if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone
 if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;$('offline-status').textContent='App support is ready.'}catch{$('offline-status').textContent='App support could not load. You can still listen in your browser.'}})}else $('offline-status').textContent='Use a supported browser to install this app.';
 if('mediaSession' in navigator){for(const [action,handler] of Object.entries({play:()=>audio.play().catch(playError),pause:()=>audio.pause(),previoustrack:()=>move(-1),nexttrack:()=>move(1),seekbackward:()=>audio.currentTime=Math.max(0,audio.currentTime-15),seekforward:()=>audio.currentTime=Math.min(audio.duration||0,audio.currentTime+30)})){try{navigator.mediaSession.setActionHandler(action,handler)}catch{}}}
 
+const playerDialog=$('full-player'),sharedPlayer=document.querySelector('footer.player');
+$('open-now-playing').onclick=()=>{if(playerDialog.open)return;$('full-player-body').append(sharedPlayer);document.body.classList.add('player-open');playerDialog.showModal();};
+$('close-player').onclick=()=>playerDialog.close();
+playerDialog.addEventListener('close',()=>{document.body.insertBefore(sharedPlayer,$('player-anchor'));document.body.classList.remove('player-open');$('open-now-playing').focus();});
