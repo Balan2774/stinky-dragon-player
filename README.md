@@ -12,3 +12,5 @@ Open your private Patreon RSS link in your browser and save its XML to your devi
 
 The RSS is parsed locally and saved in this device’s IndexedDB storage, then restored when the app reopens. It is never uploaded or synced. Use Settings → Forget saved feed to remove it. Clearing site data or using private browsing can remove the saved library. Audio requests go directly to the enclosure host. No proxy, analytics, or third-party script is used. Private feed links and episode data must never be committed to this repository.
 
+The player remembers the last episode, each episode's playback position, playback speed, campaign, filters, and player view on this device. Reopening restores playback paused; press Play to continue. Progress is saved while listening and when leaving the app. Forget saved feed also removes playback history.
+
